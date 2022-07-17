@@ -36,7 +36,7 @@ run:  poetry build migrate ## Run the application using docker-compose
 
 poetry:	build ## Update poetry dependencies
 	docker -l debug build -f docker/Dockerfile . --target=pythonbuilder -t djangoapp_pythonbuilder:$$(git rev-parse --short HEAD);
-	docker run --rm -v `pwd`/pyproject.toml:/app/pyproject.toml:z -v `pwd`/poetry.lock:/app/poetry.lock:z -it djangoapp_pythonbuilder:$$(git rev-parse --short HEAD) -c 'poetry update && poetry install --no-root'
+	docker run --rm -v `pwd`/pyproject.toml:/app/pyproject.toml:z -v `pwd`/poetry.lock:/app/poetry.lock:z djangoapp_pythonbuilder:$$(git rev-parse --short HEAD) -c 'poetry update && poetry install --no-root'
 
 all: poetry build test migrate run  ## Run all commands and start development server
 
