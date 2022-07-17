@@ -1,4 +1,4 @@
-name: Django-Docker CI
+name: makefile
 
 on:
   push:
