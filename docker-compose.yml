@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    image: djangoapp:${TAG}
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    entrypoint: ["python","-m","uvicorn", "app.asgi:application" , "--host", "0.0.0.0", "--port","8000", "--log-level=info"]
+    volumes:
+      - ./app/static:/app/static
+      - ./app/media:/app/media
+      - ./docker/certs:/etc/ssl/certs
+    depends_on:
+      - postgresql
+      - redis
+    environment:
+      DJANGO_ENV: development
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8013:8013"
+    healthcheck:
+      test: curl --fail -s http://app:8000/ || exit 1
+      interval: 1m0s
+      timeout: 30s
+      retries: 5
+
+  postgresql:
+    restart: always
+    image: postgres:14-alpine
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app
+    #ports:
+    #  - "5432:5432" # This poses a security risk do not expose in production.
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    restart: always
+    image: redis:alpine
+    volumes:
+      - redisdata:/data
+
+volumes:
+  dbdata:
+  redisdata:

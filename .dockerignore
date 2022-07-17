@@ -1,0 +1,5 @@
+# Ignore files when building docker image:
+.git
+.gitignore
+.idea
+log
