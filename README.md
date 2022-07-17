@@ -1,5 +1,11 @@
 # Python Django Docker Deployment
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mikebirdgeneau/django-docker)
+![GitHub](https://img.shields.io/github/license/mikebirdgeneau/django-docker)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mikebirdgeneau/django-docker/makefile?logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/mikebirdgeneau/django-docker)
+![GitHub issues](https://img.shields.io/github/issues/mikebirdgeneau/django-docker)
 
+----
 This repository is a simple example of a Python Django Docker deployment:
 
 - Dockerfile contains multistage build to create an image with python3 and Django.
