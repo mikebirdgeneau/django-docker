@@ -24,7 +24,7 @@ migrate: build	## Migrate database
 	TAG=$$(git rev-parse --short HEAD) docker-compose -f docker-compose.yml run --rm --entrypoint "python manage.py migrate" app \
 	)
 
-shell:  ## Run shell within the current docker container:
+shell: build   ## Run shell within the current docker container:
 	( \
 	docker run --rm -v `pwd`/app:/app:z -it djangoapp:$$(git rev-parse --short HEAD) \
 	)

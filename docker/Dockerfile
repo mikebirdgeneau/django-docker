@@ -13,7 +13,7 @@ COPY docker/main.cf /etc/postfix/main.cf
 
 # Install common (base) packages and dependencies:
 
-RUN echo "deb https://deb.debian.org/debian testing main" >> /etc/apt/sources.list && \
+RUN echo "deb http://deb.debian.org/debian testing main" >> /etc/apt/sources.list && \
     # echo 'Acquire::https::deb.debian.org::Verify-Peer "false";' > /etc/apt/apt.conf.d/99-certs && \ ## Not recommended, but may be needed behind load balancers.
     apt-get update -yq &&  \
     apt-get upgrade -yq && \
