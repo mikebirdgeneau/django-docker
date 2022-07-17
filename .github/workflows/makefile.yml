@@ -1,0 +1,27 @@
+name: Django-Docker CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Update python packages
+      run: make poetry
+      
+    - name: Build image
+      run: make build
+      
+    - name: Create DB migrations
+      run: make migrations
+      
+    - name: Run tests
+      run: make test
